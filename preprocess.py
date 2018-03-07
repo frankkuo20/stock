@@ -2,9 +2,11 @@ import csv
 import glob
 
 if __name__ == '__main__':
-    filePaths = glob.glob('0050/*')
+    # stock = '0050'
+    stock = '3008'
+    filePaths = glob.glob('{}/*'.format(stock))
 
-    allFilePath = '0050-all.csv'
+    allFilePath = '{}-all.csv'.format(stock)
 
     allFile = open(allFilePath, 'w', newline='')
     allFileWriter = csv.writer(allFile)
@@ -20,7 +22,7 @@ if __name__ == '__main__':
         next(fileReader)  # skip first line
 
         for row in fileReader:
-            if index == 0:
+            if not tempList:
                 tempList = row
                 continue
 

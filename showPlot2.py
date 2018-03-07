@@ -8,12 +8,11 @@ import os
 
 max_step = 1000
 rnn_unit = 30
-input_size = 8
+input_size = 6
 output_size = 1
 lr = 0.0006
 
-stockNo = '0050'
-# stockNo = '3008'
+stockNo = 'main'
 stockCsvPath = '{}-all.csv'.format(stockNo)
 modelPath = 'model/{}/'.format(stockNo)
 if not os.path.exists(modelPath):
@@ -170,7 +169,7 @@ def prediction(time_step=20):
         predict = prob.reshape((-1))
         test_predict2.extend(predict)
 
-        test_predict2 = np.array(test_predict2) * std2[8] + mean2[8]
+        test_predict2 = np.array(test_predict2) * std2[6] + mean2[6]
         print(test_predict2)
 
 
@@ -179,17 +178,17 @@ if __name__ == '__main__':
 
     df = pd.read_csv(f)
     print(len(df))
-    # closeList = df['close']
-    # x = list(range(len(closeList)))
-    # y = closeList
+    closeList = df['close']
+    x = list(range(len(closeList)))
+    y = closeList
 
-    # plt.figure()
-    # plt.plot(x, y, color='b')
-    # plt.show()
+    plt.figure()
+    plt.plot(x, y, color='b')
+    plt.show()
 
     f.close()
 
-    data = df.iloc[:, 1:10].values
+    data = df.iloc[:, 1:8].values
 
     # train_lstm()
 
