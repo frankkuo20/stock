@@ -56,10 +56,13 @@ def get_test_data(time_step=20, test_begin=3401):
     return mean, std, test_x, test_y
 
 
-def get_test_data2(time_step=20, test_begin=3401):
+def get_test_data2(time_step=20):
     data_test = data[-time_step:]
+    print(data_test)
+    print("----")
     mean = np.mean(data_test, axis=0)
     std = np.std(data_test, axis=0)
+    print(std)
     normalized_test_data = (data_test - mean) / std
     test_x, test_y = [], []
 
@@ -128,8 +131,7 @@ def prediction(time_step=20):
     X = tf.placeholder(tf.float32, shape=[None, time_step, input_size])
     # Y=tf.placeholder(tf.float32, shape=[None,time_step,output_size])
     mean, std, test_x, test_y = get_test_data(time_step)
-    print(len(test_x[-1]))
-    print(len(test_x))
+
     pred, _ = lstm(X)
     saver = tf.train.Saver(tf.global_variables())
     with tf.Session() as sess:
@@ -148,7 +150,8 @@ def prediction(time_step=20):
         # test_predict.extend(predict[-10:])
 
         test_y = np.array(test_y) * std[input_size] + mean[input_size]
-        test_predict = np.array(test_predict) * std[input_size] + mean[input_size]
+        # test_predict = np.array(test_predict) * std[input_size] + mean[input_size]
+        test_predict = np.array(test_predict) * std[4] + mean[4]
         temp = np.abs(test_predict - test_y[:len(test_predict)]) / test_y[:len(test_predict)]
         acc = np.average(temp)
         print(acc)
@@ -169,8 +172,12 @@ def prediction(time_step=20):
         predict = prob.reshape((-1))
         test_predict2.extend(predict)
 
-        test_predict2 = np.array(test_predict2) * std2[6] + mean2[6]
-        print(test_predict2)
+        # print(test_x2[:, 6])
+        # test_predict21 = np.array(test_predict2) * std2[6] + mean2[6]
+        # print(test_predict21)
+
+        test_predict22 = np.array(test_predict2) * std2[4] + mean2[4]
+        print(test_predict22)
 
 
 if __name__ == '__main__':
@@ -194,8 +201,6 @@ if __name__ == '__main__':
 
     prediction()
 
-# total num: 3631
-# train num: 3400
-# valid num: 11*20
+
 
 
