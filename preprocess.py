@@ -4,7 +4,7 @@ import glob
 if __name__ == '__main__':
     # stock = '0050'
     stock = '3008'
-    filePaths = glob.glob('{}/*'.format(stock))
+    filePaths = glob.glob('dataset/{}/*'.format(stock))
 
     allFilePath = '{}-all.csv'.format(stock)
 

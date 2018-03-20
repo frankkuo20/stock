@@ -6,7 +6,7 @@ import tensorflow as tf
 import os
 
 
-max_step = 1000
+max_step = 200
 rnn_unit = 30
 input_size = 8
 output_size = 1
@@ -191,7 +191,7 @@ if __name__ == '__main__':
 
     data = df.iloc[:, 1:10].values
 
-    # train_lstm()
+    train_lstm()
 
     prediction()
 
